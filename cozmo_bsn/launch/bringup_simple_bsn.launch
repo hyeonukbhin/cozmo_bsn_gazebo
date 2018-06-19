@@ -1,0 +1,5 @@
+<launch>
+  <rosparam command="load" file="$(find cozmo_bsn)/config/condition.yaml"/>
+  <node name= "bsn_handler"  pkg="cozmo_bsn" type="bsn_handler.py" output="screen">
+  </node>
+</launch>
