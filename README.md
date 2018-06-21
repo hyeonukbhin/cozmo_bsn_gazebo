@@ -13,8 +13,8 @@ roslaunch cozmo_gazebo cozmo.launch
 ```
 * Launching cozmo & gazebo controller
 ```
-rosrun cozmo_controller cozmo_controller.py
-roslaunch gazebo_simple cozmo.launch 
+rosrun cozmo_rrbot_controller cozmo_controller.py
+rosrun cozmo_rrbot_controller rrbot_controller.py
 ```
 
 ## Configuration
