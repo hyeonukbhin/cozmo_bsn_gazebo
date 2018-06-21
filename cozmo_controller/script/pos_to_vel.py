@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 import rospy
@@ -8,6 +8,8 @@ from time import sleep
 from math import sqrt
 import sys
 from geometry_msgs.msg import (Twist, TransformStamped)
+from geometry_msgs.msg import Point
+
 from darknet_ros_msgs.msg import BoundingBoxes
 
 
@@ -15,15 +17,15 @@ global_obj_recog = ""
 
 def callbackFromSpeech(data):
     human_speech = data.data
-    print human_speech
+    print(human_speech)
     for i in range(0, 5):
-        print "test"
+        print("test")
     if human_speech:
         word_list = human_speech.split()
 
-        print word_list
+        print(word_list)
         if ('찾아' in word_list) and ('곰' in word_list):
-            print "ok"
+            print("ok")
             # pub_cmd.publish("test")
             cmdLift(0.0)
             cmdLift(0.5)
@@ -45,7 +47,7 @@ def callbackFromSpeech(data):
             checkObject('bear')
 
         elif ('찾아' in word_list) and ('포켓몬' in word_list):
-            print "ok"
+            print("ok")
             # cmdMove("front", 5)
             # cmdMove("front", 5)
             # rospy.sleep(1)
@@ -80,13 +82,13 @@ def callbackFromSpeech(data):
 
 
         else:
-            print "Not understand"
+            print("Not understand")
 
 
 def checkObject(obj_name):
     global global_obj_recog
     result = False
-    print global_obj_recog
+    print(global_obj_recog)
     if obj_name == global_obj_recog:
         rospy.sleep(1)
         cmdMove("front", 10)
@@ -187,9 +189,9 @@ def callbackFromObjRecog(data):
         global_obj_recog = ""
 
     # obj_recog_class == ""
-    print global_obj_recog
+    print(global_obj_recog)
 
-def systemController():
+def cozmo_controller():
     # Init Node
 
     rospy.init_node('system_controller', anonymous=None)
@@ -199,7 +201,7 @@ def systemController():
     global pub_cmd_lift
     global pub_cmd_head
 
-    rospy.Subscriber("human_speech", String, callbackFromSpeech)
+    rospy.Subscriber("cozmo_pose", Point, callbackFromSpeech)
     rospy.Subscriber("darknet_ros/bounding_boxes", BoundingBoxes, callbackFromObjRecog)
 
     pub_cmd_vel = rospy.Publisher('key_teleop/cmd_vel', Twist, queue_size=1)
@@ -211,4 +213,4 @@ def systemController():
 
 
 if __name__ == '__main__':
-    systemController()
+    cozmo_controller()

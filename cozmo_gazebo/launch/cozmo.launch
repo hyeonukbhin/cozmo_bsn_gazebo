@@ -1,0 +1,9 @@
+<launch>
+
+  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+    <arg name="robot_name" value="cozmo"/>
+    <arg name="init_pose" value="-x -4 -y 0.7 -z 2.2"/>
+    <!-- icreate robot model -->
+    <node name="create_model" args="$(arg init_pose) -file $(find gazebo_simple)/model/cozmo_model.sdf -sdf -model $(arg robot_name)" pkg="gazebo_ros" type="spawn_model"/>
+  
+</launch>
